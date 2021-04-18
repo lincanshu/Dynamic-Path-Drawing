@@ -1,6 +1,7 @@
 from celluloid import Camera
 import src.graph_reader as gr
 from src.algorithms import *
+from queue import Queue
 
 DEFAULT_COLOR = 'blue'
 MARKED_COLOR = 'green'
@@ -60,8 +61,8 @@ def create_gif(graph: nx.Graph, camera: Camera, start: object, storage: str,
         False otherwise
 
     """
-    functions = {'dfs': lambda start_point: dfs(graph, start),
-                 'bfs': lambda start_point: bfs(graph, start)}
+    functions = {'dfs': lambda start_point: dfs_bfs_algorithm(graph, start, Stack),
+                 'bfs': lambda start_point: dfs_bfs_algorithm(graph, start, Queue)}
 
     file_name = storage + func + FILE_NAME_TEMPLATE + '(' + source.replace('/', '.') + ')' + EXTENSION
     nodes_color = [graph.nodes[node].get('color', DEFAULT_COLOR) for node in graph.nodes()]
@@ -69,15 +70,12 @@ def create_gif(graph: nx.Graph, camera: Camera, start: object, storage: str,
                    node_color=nodes_color)
     camera.snap()
 
-    try:
-        for node in functions.get(func)(start):
-            graph.nodes[node]['color'] = MARKED_COLOR
-            nodes_color = [graph.nodes[node].get('color', DEFAULT_COLOR) for node in graph.nodes()]
-            nx.draw_planar(graph, with_labels=True, node_size=NODE_SIZE,
-                           node_color=nodes_color)
-            camera.snap()
-    except ValueError:
-        return False
+    for node in functions.get(func)(start):
+        graph.nodes[node]['color'] = MARKED_COLOR
+        nodes_color = [graph.nodes[node].get('color', DEFAULT_COLOR) for node in graph.nodes()]
+        nx.draw_planar(graph, with_labels=True, node_size=NODE_SIZE,
+                       node_color=nodes_color)
+        camera.snap()
     animation = camera.animate(FRAME_INTERVAL)
     animation.save(file_name, writer='imagemagick')
     return True

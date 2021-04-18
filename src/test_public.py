@@ -7,6 +7,10 @@ import platform
 
 graph_1 = 'test_source/test_graph_1.txt'
 STORAGE = 'test_source/'
+NON_EXIST_NODE = 'A'
+EXIST_NODE = '1'
+DFS = 'dfs'
+BFS = 'bfs'
 
 # necessary define operation system
 if platform.system() == 'Windows':
@@ -25,7 +29,6 @@ real_graph_1 = {'1': ['12', '13'],
 
 
 def test_read_graph():
-    print("\t", platform.system())
     assert os.path.exists(graph_1)
     graph = gr.read_graph(graph_1)
     for node, neighbors in graph:
@@ -41,63 +44,59 @@ def test_graph_builder():
 
 def test_bfs():
     graph = graph_builder(graph_1)
-    try:
-        bfs_path = list(bfs(graph, '1'))
-        for i in range(len(bfs_path) - 1):
-            assert len(bfs_path[i]) <= len(bfs_path[i + 1])
-    except ValueError:
-        assert False
+    bfs_path = list(dfs_bfs_algorithm(graph, EXIST_NODE, Queue))
+    for i in range(len(bfs_path) - 1):
+        assert len(bfs_path[i]) <= len(bfs_path[i + 1])
 
 
 def test_dfs():
     graph = graph_builder(graph_1)
-    try:
-        dfs_path = list(dfs(graph, '1'))
-        real_nodes_1 = set()
-        for node, neigbors in real_graph_1.items():
-            real_nodes_1.add(node)
-            real_nodes_1.update(set(neigbors))
+    dfs_path = list(dfs_bfs_algorithm(graph, EXIST_NODE, Stack))
+    real_nodes_1 = set()
+    for node, neighbours in real_graph_1.items():
+        real_nodes_1.add(node)
+        real_nodes_1.update(set(neighbours))
 
-        for node in list(real_nodes_1):
-            assert node in dfs_path
-    except ValueError:
-        assert False
+    for node in list(real_nodes_1):
+        assert node in dfs_path
 
 
-def test_dfs_2():
+def test_dfs_with_wrong_arg():
+    # here we pass a non-existent vertex "A" as an argument
     graph = graph_builder(graph_1)
-    try:
-        dfs_path = list(dfs(graph, 'A'))
-    except ValueError:
-        assert True
+    with pytest.raises(ValueError):
+        _ = list(dfs_bfs_algorithm(graph, NON_EXIST_NODE, Stack))
 
 
-def test_create_gif_1():
-    algorithm = 'bfs'
+def test_create_gif_creating_gif_file():
+    algorithm = BFS
     fig = plt.figure()
     camera = Camera(fig)
     graph = graph_builder(graph_1)
-    assert create_gif(graph, camera, func=algorithm, start='1', source=graph_1, storage=STORAGE)
+    assert create_gif(graph, camera, func=algorithm, start=EXIST_NODE, source=graph_1, storage=STORAGE)
     file_name = STORAGE + algorithm + FILE_NAME_TEMPLATE + '(' + graph_1.replace('/', '.') + ')' + EXTENSION
     assert os.path.exists(file_name)
 
 
-def test_create_gif_2():
-    algorithm = 'bfs'
+def test_create_gif_with_wrong_arg():
+    # here we pass a non-existent vertex "A" as an argument
+    algorithm = BFS
     fig = plt.figure()
     camera = Camera(fig)
     graph = graph_builder(graph_1)
-    assert not create_gif(graph, camera, func=algorithm, start='A', source=graph_1, storage=STORAGE)
+    with pytest.raises(ValueError):
+        create_gif(graph, camera, func=algorithm, start=NON_EXIST_NODE, source=graph_1, storage=STORAGE)
 
 
-def test_main_1():
-    algorithm = 'dfs'
-    assert main(start='1', file_path=graph_1, algorithm=algorithm, storage=STORAGE)
+def test_main_func_create_gif_file():
+    algorithm = DFS
+    assert main(start=EXIST_NODE, file_path=graph_1, algorithm=algorithm, storage=STORAGE)
     file_name = STORAGE + algorithm + FILE_NAME_TEMPLATE + '(' + graph_1.replace('/', '.') + ')' + EXTENSION
-    print(file_name)
     assert os.path.exists(file_name)
 
 
-def test_main_2():
-    algorithm = 'dfs'
-    assert not main(start='A', file_path=graph_1, algorithm=algorithm, storage=STORAGE)
+def test_main_with_wrong_arg():
+    # here we pass a non-existent vertex "A" as an argument
+    algorithm = DFS
+    with pytest.raises(ValueError):
+        main(start=NON_EXIST_NODE, file_path=graph_1, algorithm=algorithm, storage=STORAGE)

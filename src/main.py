@@ -1,8 +1,33 @@
 import matplotlib.pyplot as plt
 from src.graph_tools import *
+import logging
+
+DEFAULT_PATH = '../input/graph.txt'
+DEFAULT_ALGORITHM = 'dfs'
+DEFAULT_STORAGE = '../output/'
 
 
-def main(start, file_path='../input/graph.txt', algorithm='dfs', storage: str = '../output/') -> bool:
+def get_logger() -> logging.Logger:
+    """
+    Function that return logger withs style settings
+
+    Returns
+    -------
+    logging.Logger :
+        logger with style settings by logging.StreamHandler
+
+    """
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.INFO)
+    fh = logging.StreamHandler()
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    fh.setFormatter(formatter)
+    logger.addHandler(fh)
+    return logger
+
+
+def main(start: object, file_path: str = DEFAULT_PATH,
+         algorithm: str = DEFAULT_ALGORITHM, storage: str = DEFAULT_STORAGE) -> bool:
     """
     The main function that call other functions
 
@@ -24,17 +49,18 @@ def main(start, file_path='../input/graph.txt', algorithm='dfs', storage: str = 
         False otherwise
 
     """
+    logger = get_logger()
     fig = plt.figure()
     plt.title(f'{algorithm.upper()} for graph from {file_path}')
     camera = Camera(fig)
     graph = graph_builder(file_path)
     if create_gif(graph, camera, func=algorithm, start=start, source=file_path, storage=storage):
-        print("\nSuccessful completion of the program!")
+        logger.info("Successful completion of the program!")
         return True
     else:
-        print("\nAn error has occurred!")
+        logger.error('An error has occurred!')
         return False
 
 
 if __name__ == '__main__':
-    main(start='A', algorithm='dfs')
+    main(start='A', algorithm='bfs')
