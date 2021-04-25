@@ -44,6 +44,24 @@ from src.main import main
 main(start='A', algorithm='bfs')
 ```
 
+Or by running in the console:
+```
+python main.py A -algo bfs
+```
+
+___
+
+#### __NB__: To open help for running a script with valid arguments, you must type in console:
+
+```
+python main.py -h
+```
+Result:
+
+![help](docs/screen.png)
+
+___
+
 ## Result: 
 ![BFS_gif](https://github.com/Dannikk/dfs-bfs-animation-using-networkx/blob/main/output/bfs%20animation%20(...input.graph.txt).gif)
 
@@ -52,6 +70,12 @@ And for:
 from src.main import main
 main(start='A', algorithm='dfs')
 ```
+
+Or by running in the console:
+```
+python main.py A -algo dfs
+```
+
 ![DFS_gif](https://raw.githubusercontent.com/Dannikk/dfs-bfs-animation-using-networkx/main/output/dfs%20animation%20(...input.graph.txt).gif)
 
 ## Contacts:
