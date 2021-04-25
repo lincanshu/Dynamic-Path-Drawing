@@ -13,7 +13,7 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath('../../'))
-# print(sys.path)
+print(sys.path)
 
 
 # -- Project information -----------------------------------------------------
@@ -35,21 +35,23 @@ extensions = ['sphinx.ext.autodoc', 'sphinx.ext.coverage',
 'sphinx.ext.napoleon']
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['.']
+templates_path = ['..']
 print(os.path.abspath(templates_path[0]))
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
-
+master_doc = 'index'
 
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'classic'
+html_theme = 'default'
+# html_theme = 'ADCtheme'
+html_style = 'adctheme.css'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
