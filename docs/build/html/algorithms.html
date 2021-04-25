@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Module algorithms &#8212; Graph traversal animation 1 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/adctheme.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="Graph traversal animation 1 documentation" href="index.html" />
+    <link rel="prev" title="Module graph_tools" href="graph_tools.html" />
+    <link media="only screen and (max-device-width: 480px)" href="_static/mobile.css" type="text/css" rel="stylesheet" /> 
+  </head><body>
+<div id="docstitle">
+	<p>Graph traversal animation 1 documentation</p>
+</div>
+<div id="header">
+	<div id="title"><h1>Module algorithms</h1></div>
+	<ul id="headerButtons">
+		<li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+		<li id="page_buttons">
+			<div class="headerButton"><a href="genindex.html" title="General Index" accesskey="I">index</a></div>
+			<div class="headerButton"><a href="py-modindex.html" title="Python Module Index" >modules</a></div>
+			<div class="headerButton"><a href="graph_tools.html" title="Module graph_tools" accesskey="P">previous</a></div>
+		</li>
+	</ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+	<ul><li class="toctree-l1"><a href="index.html">Table of Contents</a></li></ul>
+	<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="main.html">Module main</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph_reader.html">Module graph_reader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph_tools.html">Module graph_tools</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Module algorithms</a></li>
+</ul>
+
+      <h3>This Page</h3>
+      <ul class="this-page-menu">
+        <li><a href="_sources/algorithms.rst.txt"
+               rel="nofollow">Show Source</a></li>
+      </ul>
+    <div id="searchbox" style="display: none">
+      
+        <form class="search" action="search.html" method="get">
+			<div class="search-wrapper">
+			<span class="search-left"></span>
+			<input class="prettysearch" type="text" name="q" size="18" />
+			<span class="search-right">&nbsp;</span>
+			</div>
+          <input type="submit" value="Search" class="searchbutton" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+        <p class="searchtip" style="font-size: 90%">
+        Enter search terms or a module, class or function name.
+        </p>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-src.algorithms">
+<span id="module-algorithms"></span><h1>Module algorithms<a class="headerlink" href="#module-src.algorithms" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="src.algorithms.Stack">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">src.algorithms.</span></code><code class="sig-name descname"><span class="pre">Stack</span></code><a class="headerlink" href="#src.algorithms.Stack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implementation of an abstract data type - a stack, by means of a built-in list</p>
+<dl class="py method">
+<dt id="src.algorithms.Stack.empty">
+<code class="sig-name descname"><span class="pre">empty</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">bool</span><a class="headerlink" href="#src.algorithms.Stack.empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checking the stack for emptiness</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>False if stack is not empty, True otherwise</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.algorithms.Stack.get">
+<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">object</span><a class="headerlink" href="#src.algorithms.Stack.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getting an item from the top of the stack and removing it from their stack
+(essentially an implementation of the pop() method)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>any object - an item from the top of the stack, or None if the stack is empty</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.algorithms.Stack.put">
+<code class="sig-name descname"><span class="pre">put</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.algorithms.Stack.put" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adding an item to the top of the stack</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>node</strong> (<em>object</em>) – any object</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.algorithms.bfs">
+<code class="sig-prename descclassname"><span class="pre">src.algorithms.</span></code><code class="sig-name descname"><span class="pre">bfs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">networkx.classes.graph.Graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.algorithms.bfs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Non-recursive realization of breadth-first search algorithm using <cite>~queue.Queue</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<cite>~networkx.Graph</cite>) – any graph</p></li>
+<li><p><strong>start</strong> (<em>object</em>) – any hashable object</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>function <cite>traverse_graph()</cite> call result with argument <cite>~queue.Queue</cite></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.algorithms.dfs">
+<code class="sig-prename descclassname"><span class="pre">src.algorithms.</span></code><code class="sig-name descname"><span class="pre">dfs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">networkx.classes.graph.Graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.algorithms.dfs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Non-recursive realization of depth-first search algorithm using <cite>~Stack</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<cite>~networkx.Graph</cite>) – any graph</p></li>
+<li><p><strong>start</strong> (<em>object</em>) – any hashable object</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>function <cite>traverse_graph()</cite> call result with argument <cite>~Stack</cite></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.algorithms.traverse_graph">
+<code class="sig-prename descclassname"><span class="pre">src.algorithms.</span></code><code class="sig-name descname"><span class="pre">traverse_graph</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">networkx.classes.graph.Graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collection_class</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">queue.Queue</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.algorithms.traverse_graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Non-recursive realization of depth-first search or breadth-first search
+algorithm using <cite>~Stack</cite> or <cite>~queue.Queue</cite> respectively</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<cite>~networkx.Graph</cite>) – any graph</p></li>
+<li><p><strong>start</strong> (<em>object</em>) – any hashable object</p></li>
+<li><p><strong>collection_class</strong> (class, default: <cite>~queue.Queue</cite>) – abstract data type used to implement a specific graph traversal algorithm
+(<cite>~Stack</cite> for depth-first search, <cite>~queue.Queue</cite> for breadth-first search)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>yielding node by node of dfs path, on None in error case</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>generator</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2021, Nikita Danilov.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.5.4.
+	</p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+	<div id="breadcrumbs">
+		Module algorithms
+		</ul>
+	</div>
+	<script type="text/javascript" charset="utf-8" src="_static/toc.js"></script>
+  </body>
+</html>
