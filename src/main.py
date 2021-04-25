@@ -11,9 +11,12 @@ sys.path.insert(0, SCRIPT_DIRECTORY)
 from src.graph_tools import *
 
 
-DEFAULT_SOURCE = SCRIPT_DIRECTORY + '/input/graph.txt'
+# DEFAULT_SOURCE = SCRIPT_DIRECTORY + '/input/graph.txt'
+# DEFAULT_ALGORITHM = 'dfs'
+# DEFAULT_STORAGE = SCRIPT_DIRECTORY + '/output/'
+DEFAULT_SOURCE = '../input/graph.txt'
 DEFAULT_ALGORITHM = 'dfs'
-DEFAULT_STORAGE = SCRIPT_DIRECTORY + '/output/'
+DEFAULT_STORAGE = '../output/'
 
 
 def get_logger() -> logging.Logger:
