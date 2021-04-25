@@ -7,7 +7,11 @@ class Stack:
     Implementation of an abstract data type - a stack, by means of a built-in list
 
     """
-    nodes: list = []
+    def __init__(self):
+        """
+        Constructor create instance field `self.nodes`
+        """
+        self.nodes = []
 
     def put(self, node):
         """
@@ -32,10 +36,7 @@ class Stack:
             any object - an item from the top of the stack, or None if the stack is empty
 
         """
-        if not self.empty():
-            return self.nodes.pop()
-        else:
-            return None
+        return self.nodes.pop()
 
     def empty(self) -> bool:
         """
@@ -47,12 +48,10 @@ class Stack:
             False if stack is not empty, True otherwise
 
         """
-        if len(self.nodes) > 0:
-            return False
-        return True
+        return not bool(self.nodes)
 
 
-def dfs_bfs_algorithm(graph: nx.Graph, start: object, opt_Queue=Queue):
+def traverse_graph(graph: nx.Graph, start: object, collection_class: Queue):
     """
     Non-recursive realization of depth-first search or breadth-first search
     algorithm using `~Stack` or `~queue.Queue` respectively
@@ -63,7 +62,7 @@ def dfs_bfs_algorithm(graph: nx.Graph, start: object, opt_Queue=Queue):
         any graph
     start : object
         any hashable object
-    opt_Queue : class, default: `~queue.Queue`
+    collection_class : class, default: `~queue.Queue`
         abstract data type used to implement a specific graph traversal algorithm
         (`~Stack` for depth-first search, `~queue.Queue` for breadth-first search)
 
@@ -76,11 +75,11 @@ def dfs_bfs_algorithm(graph: nx.Graph, start: object, opt_Queue=Queue):
         raise ValueError("The graph does not contain such a node\n"
                          "\t\t\tSet the correct node")
 
-    queue = opt_Queue()
-    queue.put(start)
+    collection = collection_class()
+    collection.put(start)
     visited = set()
-    while not queue.empty():
-        current = queue.get()
+    while not collection.empty():
+        current = collection.get()
         if current in visited:
             continue
         visited.add(current)
@@ -88,4 +87,42 @@ def dfs_bfs_algorithm(graph: nx.Graph, start: object, opt_Queue=Queue):
 
         for neighbor in graph.neighbors(current):
             if neighbor not in visited:
-                queue.put(neighbor)
+                collection.put(neighbor)
+
+
+def dfs(graph: nx.Graph, start: object):
+    """
+    Non-recursive realization of depth-first search algorithm using `~Stack`
+
+    Parameters
+    ----------
+    graph : `~networkx.Graph`
+        any graph
+    start : object
+        any hashable object
+
+    Returns
+    -------
+    object :
+        function `traverse_graph()` call result with argument `~Stack`
+    """
+    return traverse_graph(graph, start, Stack)
+
+
+def bfs(graph: nx.Graph, start: object):
+    """
+    Non-recursive realization of breadth-first search algorithm using `~queue.Queue`
+
+    Parameters
+    ----------
+    graph : `~networkx.Graph`
+        any graph
+    start : object
+        any hashable object
+
+    Returns
+    -------
+    object :
+        function `traverse_graph()` call result with argument `~queue.Queue`
+    """
+    return traverse_graph(graph, start, Queue)

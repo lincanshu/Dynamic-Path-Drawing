@@ -1,14 +1,32 @@
 from celluloid import Camera
 import src.graph_reader as gr
 from src.algorithms import *
-from queue import Queue
 
+SEPARATOR = '/'
 DEFAULT_COLOR = 'blue'
 MARKED_COLOR = 'green'
-FILE_NAME_TEMPLATE = ' animation '
 EXTENSION = '.gif'
+FILENAME_TEMPLATE = "{storage}{algorithm}_animation_(...{source}){extension}"
 FRAME_INTERVAL = 600
 NODE_SIZE = 500
+
+
+def get_filename(directory: str) -> str:
+    """
+    Returns the filename by extracting it from an absolute path
+
+    Parameters
+    ----------
+    directory : str
+        the absolute file path
+
+    Returns
+    -------
+    str :
+        the filename
+
+    """
+    return directory.rsplit(SEPARATOR)[-1]
 
 
 def graph_builder(file_path: str) -> nx.Graph:
@@ -61,16 +79,18 @@ def create_gif(graph: nx.Graph, camera: Camera, start: object, storage: str,
         False otherwise
 
     """
-    functions = {'dfs': lambda start_point: dfs_bfs_algorithm(graph, start, Stack),
-                 'bfs': lambda start_point: dfs_bfs_algorithm(graph, start, Queue)}
+    functions = {'dfs': dfs,
+                 'bfs': bfs}
 
-    file_name = storage + func + FILE_NAME_TEMPLATE + '(' + source.replace('/', '.') + ')' + EXTENSION
+    file_name = FILENAME_TEMPLATE.format(storage=storage, algorithm=func,
+                                         source=get_filename(source),
+                                         extension=EXTENSION)
     nodes_color = [graph.nodes[node].get('color', DEFAULT_COLOR) for node in graph.nodes()]
     nx.draw_planar(graph, with_labels=True, node_size=NODE_SIZE,
                    node_color=nodes_color)
     camera.snap()
 
-    for node in functions.get(func)(start):
+    for node in functions.get(func)(graph, start):
         graph.nodes[node]['color'] = MARKED_COLOR
         nodes_color = [graph.nodes[node].get('color', DEFAULT_COLOR) for node in graph.nodes()]
         nx.draw_planar(graph, with_labels=True, node_size=NODE_SIZE,

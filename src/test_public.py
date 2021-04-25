@@ -44,14 +44,14 @@ def test_graph_builder():
 
 def test_bfs():
     graph = graph_builder(graph_1)
-    bfs_path = list(dfs_bfs_algorithm(graph, EXIST_NODE, Queue))
+    bfs_path = list(bfs(graph, EXIST_NODE))
     for i in range(len(bfs_path) - 1):
         assert len(bfs_path[i]) <= len(bfs_path[i + 1])
 
 
 def test_dfs():
     graph = graph_builder(graph_1)
-    dfs_path = list(dfs_bfs_algorithm(graph, EXIST_NODE, Stack))
+    dfs_path = list(dfs(graph, EXIST_NODE))
     real_nodes_1 = set()
     for node, neighbours in real_graph_1.items():
         real_nodes_1.add(node)
@@ -65,7 +65,7 @@ def test_dfs_with_wrong_arg():
     # here we pass a non-existent vertex "A" as an argument
     graph = graph_builder(graph_1)
     with pytest.raises(ValueError):
-        _ = list(dfs_bfs_algorithm(graph, NON_EXIST_NODE, Stack))
+        _ = list(dfs(graph, NON_EXIST_NODE))
 
 
 def test_create_gif_creating_gif_file():
@@ -74,7 +74,9 @@ def test_create_gif_creating_gif_file():
     camera = Camera(fig)
     graph = graph_builder(graph_1)
     assert create_gif(graph, camera, func=algorithm, start=EXIST_NODE, source=graph_1, storage=STORAGE)
-    file_name = STORAGE + algorithm + FILE_NAME_TEMPLATE + '(' + graph_1.replace('/', '.') + ')' + EXTENSION
+    file_name = FILENAME_TEMPLATE.format(storage=STORAGE, algorithm=algorithm,
+                                         source=get_filename(graph_1),
+                                         extension=EXTENSION)
     assert os.path.exists(file_name)
 
 
@@ -91,7 +93,9 @@ def test_create_gif_with_wrong_arg():
 def test_main_func_create_gif_file():
     algorithm = DFS
     assert main(start=EXIST_NODE, file_path=graph_1, algorithm=algorithm, storage=STORAGE)
-    file_name = STORAGE + algorithm + FILE_NAME_TEMPLATE + '(' + graph_1.replace('/', '.') + ')' + EXTENSION
+    file_name = FILENAME_TEMPLATE.format(storage=STORAGE, algorithm=algorithm,
+                                         source=get_filename(graph_1),
+                                         extension=EXTENSION)
     assert os.path.exists(file_name)
 
 
