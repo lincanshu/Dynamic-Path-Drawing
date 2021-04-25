@@ -6,7 +6,7 @@ To work with graphs, I used the `networkx` package and the `matplotlib` and `cel
 
 ## Documentation 
 
-![Documentation](https://dfs-bfs-animation-using-networkx-.readthedocs.io/en/latest/) hosted on free documentation hosting ![`Read the docs`](https://readthedocs.org/)
+[Documentation](https://dfs-bfs-animation-using-networkx-.readthedocs.io/en/latest/) hosted on free documentation hosting [`Read the docs`](https://readthedocs.org/)
 
 ## Install dependencies
 
