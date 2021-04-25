@@ -4,6 +4,9 @@ This is my student project, the task of which is to learn how to visualize algor
 In this work, I have animated the work of DFS and BFS.
 To work with graphs, I used the `networkx` package and the `matplotlib` and `celluloid` packages to create a .gif file.
 
+## Documentation 
+
+![Documentation](https://dfs-bfs-animation-using-networkx-.readthedocs.io/en/latest/) hosted on free documentation hosting ![`Read the docs`](https://readthedocs.org/)
 
 ## Install dependencies
 
