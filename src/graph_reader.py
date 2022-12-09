@@ -18,8 +18,9 @@ def read_graph(file_path: str):
     generator :
         yielding node (any hashable object), list of neighbors
     """
+    arr = []
     with open(file_path, 'r') as file:
-        for line in file:
-            node, _, neighbors = line.partition(DELIMITER)
-            assert neighbors
-            yield node, neighbors.replace(NODES_DELIMITER, '').split()
+        for line in file.readlines():
+            line = line.strip().split()
+            arr.append([int(line[0]), int(line[1])])
+    return arr

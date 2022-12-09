@@ -45,13 +45,12 @@ def graph_builder(file_path: str) -> nx.Graph:
 
     """
     graph = nx.Graph()
-    for nod, neighs in gr.read_graph(file_path):
-        for neighbour in neighs:
-            graph.add_edge(nod, neighbour)
+    for u, v in gr.read_graph(file_path):
+        graph.add_edge(u, v)
     return graph
 
 
-def create_gif(graph: nx.Graph, camera: Camera, start: object, storage: str,
+def create_gif(G: nx.Graph, camera: Camera, start: object, storage: str,
                func: str = 'dfs', source: str = '') -> bool:
     """
     Function that create a gif file using Camera from celluloid
@@ -89,20 +88,36 @@ def create_gif(graph: nx.Graph, camera: Camera, start: object, storage: str,
     # nx.draw_planar(graph, with_labels=True, node_size=NODE_SIZE, node_color=nodes_color)
     
     # 把随机数种子确定下来，保证绘制的拓扑都长一样
-    pos = random_layout(graph, seed=numpy.random)
+    pos = random_layout(G, seed=numpy.random)
 
     # 绘制边的颜色
-    edges_color = [graph.edges[edge].get('color', DEFAULT_COLOR) for edge in graph.edges()]
-    nx.draw(graph, pos, with_labels=True, node_size=NODE_SIZE, edge_color=edges_color)
+    edges_color = [G.edges[edge].get('color', DEFAULT_COLOR) for edge in G.edges()]
+    nx.draw(G, pos, with_labels=True, node_size=NODE_SIZE, edge_color=edges_color)
     # 抓取快照
     camera.snap() 
 
-    # 看看如何修改一条边的颜色
-    for edge in graph.edges():
-        graph.edges[edge]['color'] = 'red'
-        edges_color = [graph.edges[edge].get('color', DEFAULT_COLOR) for edge in graph.edges()]
-        nx.draw(graph, pos, with_labels=True, node_size=NODE_SIZE, edge_color=edges_color)
-        camera.snap()
+    with open('../input/path.txt', 'r') as f:
+        for path in f.readlines():
+            path = path.strip().split()
+            n = len(path)
+            array = []
+            # 每次读取路径的一条边就绘制一次
+            for i in range(0, n, 2):
+                u, v = int(path[i]), int(path[i+1])
+                array.append([u, v])
+                G[u][v]['color'] = 'red'
+
+                edges_color = [G.edges[edge].get('color', DEFAULT_COLOR) for edge in G.edges()]
+                nx.draw(G, pos, with_labels=True, node_size=NODE_SIZE, edge_color=edges_color)
+                camera.snap()
+
+            # 整个path读取完毕，颜色修正一次
+            for u, v in array:
+                G[u][v]['color'] = 'green'
+            edges_color = [G.edges[edge].get('color', DEFAULT_COLOR) for edge in G.edges()]
+            nx.draw(G, pos, with_labels=True, node_size=NODE_SIZE, edge_color=edges_color)
+            camera.snap()
+
     animation = camera.animate(FRAME_INTERVAL)
     animation.save(file_name, writer='imagemagick')
     return True
