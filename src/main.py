@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 # and the import of modules occurs correctly
 SCRIPT_DIRECTORY = str(os.path.abspath(__file__).rsplit(sep='\\', maxsplit=2)[0]).replace('\\', '/')
 sys.path.insert(0, SCRIPT_DIRECTORY)
-from src.graph_tools import *
+from graph_tools import *
 
 
 # DEFAULT_SOURCE = SCRIPT_DIRECTORY + '/input/graph.txt'

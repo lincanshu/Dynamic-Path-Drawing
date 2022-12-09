@@ -1,6 +1,6 @@
 from celluloid import Camera
-import src.graph_reader as gr
-from src.algorithms import *
+import graph_reader as gr
+from algorithms import *
 
 SEPARATOR = '/'
 DEFAULT_COLOR = 'blue'
@@ -85,9 +85,11 @@ def create_gif(graph: nx.Graph, camera: Camera, start: object, storage: str,
     file_name = FILENAME_TEMPLATE.format(storage=storage, algorithm=func,
                                          source=get_filename(source),
                                          extension=EXTENSION)
-    nodes_color = [graph.nodes[node].get('color', DEFAULT_COLOR) for node in graph.nodes()]
-    nx.draw_planar(graph, with_labels=True, node_size=NODE_SIZE,
-                   node_color=nodes_color)
+    # nodes_color = [graph.nodes[node].get('color', DEFAULT_COLOR) for node in graph.nodes()]
+    # nx.draw_planar(graph, with_labels=True, node_size=NODE_SIZE, node_color=nodes_color)
+    # 绘制边的颜色
+    edges_color = [graph.edges[edge].get('color', DEFAULT_COLOR) for edge in graph.edges()]
+    nx.draw_planar(graph, with_labels=True, node_size=NODE_SIZE, edge_color=edges_color)
     camera.snap()
 
     for node in functions.get(func)(graph, start):
