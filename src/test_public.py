@@ -1,7 +1,7 @@
 import pytest
 import os
-from src.main import main, plt
-from src.graph_tools import *
+from main import main, plt
+from graph_tools import *
 import platform
 
 
