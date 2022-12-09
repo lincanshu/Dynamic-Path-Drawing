@@ -1,1 +1,1 @@
-python main.py A -algo bfs
+python main.py 0 -algo dfs

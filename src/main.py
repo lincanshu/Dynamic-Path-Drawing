@@ -14,7 +14,7 @@ from graph_tools import *
 # DEFAULT_SOURCE = SCRIPT_DIRECTORY + '/input/graph.txt'
 # DEFAULT_ALGORITHM = 'dfs'
 # DEFAULT_STORAGE = SCRIPT_DIRECTORY + '/output/'
-DEFAULT_SOURCE = '../input/graph.txt'
+DEFAULT_SOURCE = '../input/topo.txt'
 DEFAULT_ALGORITHM = 'dfs'
 DEFAULT_STORAGE = '../output/'
 

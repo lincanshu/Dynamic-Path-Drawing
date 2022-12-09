@@ -44,7 +44,7 @@ def graph_builder(file_path: str) -> nx.Graph:
         graph constructing from the text file located in file_path
 
     """
-    graph = nx.DiGraph()
+    graph = nx.Graph()
     for nod, neighs in gr.read_graph(file_path):
         for neighbour in neighs:
             graph.add_edge(nod, neighbour)
@@ -87,15 +87,21 @@ def create_gif(graph: nx.Graph, camera: Camera, start: object, storage: str,
                                          extension=EXTENSION)
     # nodes_color = [graph.nodes[node].get('color', DEFAULT_COLOR) for node in graph.nodes()]
     # nx.draw_planar(graph, with_labels=True, node_size=NODE_SIZE, node_color=nodes_color)
+    
+    # 把随机数种子确定下来，保证绘制的拓扑都长一样
+    pos = random_layout(graph, seed=numpy.random)
+
     # 绘制边的颜色
     edges_color = [graph.edges[edge].get('color', DEFAULT_COLOR) for edge in graph.edges()]
-    nx.draw_planar(graph, with_labels=True, node_size=NODE_SIZE, edge_color=edges_color)
-    camera.snap()
+    nx.draw(graph, pos, with_labels=True, node_size=NODE_SIZE, edge_color=edges_color)
+    # 抓取快照
+    camera.snap() 
+
 
     for node in functions.get(func)(graph, start):
         graph.nodes[node]['color'] = MARKED_COLOR
         nodes_color = [graph.nodes[node].get('color', DEFAULT_COLOR) for node in graph.nodes()]
-        nx.draw_planar(graph, with_labels=True, node_size=NODE_SIZE,
+        nx.draw(graph, pos, with_labels=True, node_size=NODE_SIZE,
                        node_color=nodes_color)
         camera.snap()
     animation = camera.animate(FRAME_INTERVAL)
