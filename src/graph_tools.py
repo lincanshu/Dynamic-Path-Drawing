@@ -97,12 +97,11 @@ def create_gif(graph: nx.Graph, camera: Camera, start: object, storage: str,
     # 抓取快照
     camera.snap() 
 
-
-    for node in functions.get(func)(graph, start):
-        graph.nodes[node]['color'] = MARKED_COLOR
-        nodes_color = [graph.nodes[node].get('color', DEFAULT_COLOR) for node in graph.nodes()]
-        nx.draw(graph, pos, with_labels=True, node_size=NODE_SIZE,
-                       node_color=nodes_color)
+    # 看看如何修改一条边的颜色
+    for edge in graph.edges():
+        graph.edges[edge]['color'] = 'red'
+        edges_color = [graph.edges[edge].get('color', DEFAULT_COLOR) for edge in graph.edges()]
+        nx.draw(graph, pos, with_labels=True, node_size=NODE_SIZE, edge_color=edges_color)
         camera.snap()
     animation = camera.animate(FRAME_INTERVAL)
     animation.save(file_name, writer='imagemagick')
